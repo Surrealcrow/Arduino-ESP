@@ -8,7 +8,7 @@ Code I had played with, tools I had develop to thinker with Arduino and ESP vari
 ```ps
 PS> read-com COM11 
 ```
-![read-com](https://github.com/Surrealcrow/Arduino-ESP/ReadCOMPort/readcom.png)
+![read-com](https://github.com/Surrealcrow/Arduino-ESP/readcom.png)
 
 
 ## ESP01 Arduino Code
