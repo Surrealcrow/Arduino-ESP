@@ -50,7 +50,7 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length);
 void setup() {
   Serial.begin(115200);
   pinMode(REL_PIN, OUTPUT);
-  digitalWrite(REL_PIN, HIGH);
+  digitalWrite(REL_PIN, LOW);
 
   /* Wifi Manager 
    *  
@@ -58,6 +58,7 @@ void setup() {
   Serial.println();
   Serial.println("Disconnecting previously connected WiFi");
   WiFi.disconnect();
+  WiFi.mode(WIFI_STA);
   EEPROM.begin(512); //Initialasing EEPROM
   delay(10);
   pinMode(LED_BUILTIN, OUTPUT);
@@ -97,7 +98,7 @@ void setup() {
   while(i<20) {
     delay(500);
     Serial.print(i++);
-    Serial.print("of 20");
+    Serial.print("of 50");
     if(WiFiMulti.run() == WL_CONNECTED) i=20;
   }
   if(WiFiMulti.run() == WL_CONNECTED) {
@@ -113,7 +114,7 @@ void setup() {
   Serial.println();
   Serial.println("Waiting for new credentials...");
   
-  while ((WiFi.status() != WL_CONNECTED))
+  while ((WiFiMulti.run() != WL_CONNECTED))
   {
     Serial.print(".");
     delay(100);
@@ -143,7 +144,7 @@ void setup() {
   Serial.println("Ready");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
-  Serial.print(" Actualizado");
+  
   /* OTA Finishes here */
 
 
@@ -179,7 +180,7 @@ void turnOn(String deviceId) {
   {  
     Serial.print("Turn on device id: ");
     Serial.println(deviceId);
-    digitalWrite(REL_PIN, LOW);
+    digitalWrite(REL_PIN, HIGH);
   }     
 }
 
@@ -188,7 +189,7 @@ void turnOff(String deviceId) {
    {  
      Serial.print("Turn off Device ID: ");
      Serial.println(deviceId);
-     digitalWrite(REL_PIN, HIGH);
+     digitalWrite(REL_PIN, LOW);
    }
 }
 
@@ -294,6 +295,7 @@ void launchWeb()
   Serial.println("");
   if (WiFi.status() == WL_CONNECTED)
     Serial.println("WiFi connected");
+ 
   Serial.print("Local IP: ");
   Serial.println(WiFi.localIP());
   Serial.print("SoftAP IP: ");
@@ -346,7 +348,7 @@ void setupAP(void)
   }
   st += "</ol>";
   delay(100);
-  WiFi.softAP("techiesms", "");
+  WiFi.softAP("gato", "");
   Serial.println("softap");
   launchWeb();
   Serial.println("over");
