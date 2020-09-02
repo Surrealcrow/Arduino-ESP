@@ -23,4 +23,3 @@ function read-com  {
     }
     while ($port.IsOpen)
 }
-Export-ModuleMember -Function read-com
